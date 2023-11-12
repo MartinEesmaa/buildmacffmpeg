@@ -1,4 +1,4 @@
-name: Build FFmpeg Mac OS build
+name: Build FFmpeg Mac OS VVCEasy build
 on:
   push:
     branches: [ main ]
@@ -12,7 +12,7 @@ jobs:
     - name: Uname...
       run: uname -a
     - name: Git clone vvenc, vvdec and FFmpeg
-      run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec && git clone --depth=1 https://github.com/MartinEesmaa/FFmpeg
+      run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec && git clone --depth=1 https://github.com/MartinEesmaa/FFmpeg-VVC
     - name: Build vvenc
       run: cd vvenc && mkdir build && cd build && cmake .. -G "Xcode" -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build . --config Release && cmake --build . --config Release --target install && cd ../../
     - name: Build vvdec
@@ -22,19 +22,19 @@ jobs:
       with:
         brew: libxml2 opus sdl2 ffmpeg fdk-aac nasm dav1d
     - name: Run to compile ffmpeg
-      run: cd FFmpeg && chmod +x configure && ./configure --enable-static --enable-libvvenc --enable-libvvdec --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libfdk-aac --enable-pic --enable-sdl2 --pkg-config-flags=--static --extra-version=VVCEasy && make -j
+      run: cd FFmpeg-VVC && chmod +x configure && ./configure --enable-static --enable-libvvenc --enable-libvvdec --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libfdk-aac --enable-pic --enable-sdl2 --pkg-config-flags=--static --extra-version=VVCEasy && make -j
     - name: Upload a Build Artifact of ffmpeg
       uses: actions/upload-artifact@v3.0.0
       with:
         name: ffmpeg
-        path: ./FFmpeg/ffmpeg
+        path: ./FFmpeg-VVC/ffmpeg
     - name: Upload a Build Artifact of ffplay
       uses: actions/upload-artifact@v3.0.0
       with:
         name: ffplay
-        path: ./FFmpeg/ffplay
+        path: ./FFmpeg-VVC/ffplay
     - name: Upload a Build Artifact of ffprobe
       uses: actions/upload-artifact@v3.0.0
       with:
         name: ffprobe
-        path: ./FFmpeg/ffprobe
+        path: ./FFmpeg-VVC/ffprobe
