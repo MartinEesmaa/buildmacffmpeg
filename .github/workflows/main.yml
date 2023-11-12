@@ -31,10 +31,10 @@ jobs:
     - name: Upload a Build Artifact of ffplay
       uses: actions/upload-artifact@v3.0.0
       with:
-        name: ffmpeg
+        name: ffplay
         path: ./FFmpeg/ffplay
     - name: Upload a Build Artifact of ffprobe
       uses: actions/upload-artifact@v3.0.0
       with:
-        name: ffmpeg
+        name: ffprobe
         path: ./FFmpeg/ffprobe
