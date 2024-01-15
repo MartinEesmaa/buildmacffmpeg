@@ -1,4 +1,4 @@
-name: Build FFmpeg MacOS VVCEasy build
+name: Build FFmpeg mac OS VVCEasy build
 on:
   push:
     branches: [ main ]
@@ -11,18 +11,16 @@ jobs:
     - uses: actions/checkout@v3
     - name: Uname...
       run: uname -a
-    - name: Git clone vvenc, vvdec, fdk-aac and finally FFmpeg
-      run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec && git clone --depth=1 https://github.com/mstorsjo/fdk-aac && git clone --depth=1 https://github.com/MartinEesmaa/FFmpeg-VVC
+    - name: Git clone vvenc, vvdec and finally FFmpeg
+      run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec && git clone --depth=1 https://github.com/MartinEesmaa/FFmpeg-VVC
     - name: Build vvenc
       run: cd vvenc && mkdir build && cd build && cmake .. -G "Xcode" -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build . --config Release && cmake --build . --config Release --target install && cd ../../
     - name: Build vvdec
       run: cd vvdec && mkdir build && cd build && cmake .. -G "Xcode" -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build . --config Release && cmake --build . --config Release --target install && cd ../../
-    - name: Build fdk-aac
-      run: cd fdk-aac && ./autogen.sh && ./configure --prefix=/usr/local --enable-static --disable-shared && make -j1 && sudo make install && cd ../
     - name: Install Package
       uses: ConorMacBride/install-package@v1.1.0
       with:
-        brew: libxml2 opus sdl2 ffmpeg nasm dav1d
+        brew: libxml2 opus sdl2 ffmpeg fdk-aac nasm dav1d
     - name: Run to compile ffmpeg
       run: cd FFmpeg-VVC && chmod +x configure && ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-static --enable-libvvenc --enable-libvvdec --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libfdk-aac --enable-pic --enable-sdl2 --pkg-config-flags=--static --extra-version=VVCEasy && make -j2
     - name: Upload a Build Artifact of ffmpeg
