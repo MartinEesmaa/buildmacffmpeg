@@ -20,7 +20,7 @@ jobs:
     - name: Install Package
       uses: ConorMacBride/install-package@v1.1.0
       with:
-        brew: libxml2 opus sdl2 ffmpeg fdk-aac nasm dav1d
+        brew: libxml2 opus sdl2 ffmpeg fdk-aac nasm
     - name: Run to compile ffmpeg
       run: cd FFmpeg-VVC && chmod +x configure && ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-static --enable-libvvenc --enable-libvvdec --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libfdk-aac --enable-pic --enable-sdl2 --pkg-config-flags=--static --extra-version=VVCEasy && make -j4
     - name: Upload a Build Artifact of ffmpeg
