@@ -1,4 +1,4 @@
-name: Build FFmpeg mac OS VVCEasy Build
+name: Build FFmpeg macOS VVCEasy Build
 on:
   push:
     branches: [ main ]
@@ -22,7 +22,7 @@ jobs:
       with:
         brew: libxml2 opus sdl2 ffmpeg fdk-aac nasm dav1d
     - name: Run to compile ffmpeg
-      run: cd FFmpeg-VVC && chmod +x configure && ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-static --enable-libvvenc --enable-libvvdec --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libfdk-aac --enable-pic --enable-sdl2 --pkg-config-flags=--static --extra-version=VVCEasy && make -j2
+      run: cd FFmpeg-VVC && chmod +x configure && ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-static --enable-libvvenc --enable-libvvdec --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libfdk-aac --enable-pic --enable-sdl2 --pkg-config-flags=--static --extra-version=VVCEasy && make -j4
     - name: Upload a Build Artifact of ffmpeg
       uses: actions/upload-artifact@v3.0.0
       with:
