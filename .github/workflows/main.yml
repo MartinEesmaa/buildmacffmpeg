@@ -13,6 +13,7 @@ jobs:
       run: uname -a
     - name: Set Xcode 14 to avoid error of vvenc & vvdec
       run: |
+        ls -la /Applications
         sudo xcode-select -s /Applications/Xcode_14.0.app/Contents/Developer
         clang -v
     - name: Install Package
