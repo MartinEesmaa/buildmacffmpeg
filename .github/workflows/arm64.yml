@@ -19,7 +19,7 @@ jobs:
     - name: Install Package
       run: brew install libxml2 opus sdl2 ffmpeg fdk-aac nasm --overwrite
     - name: Git clone vvenc, vvdec and finally FFmpeg
-      run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec && git clone --depth=1 https://github.com/MartinEesmaa/FFmpeg-VVC
+      run: git clone https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec && git clone --depth=1 https://github.com/MartinEesmaa/FFmpeg-VVC
     - name: Build vvenc
       run: cd vvenc && git checkout 1a4864a5634a014ffe590b6be22d6281ee5211eb && mkdir build && cd build && cmake .. -G "Xcode" -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build . --config Release && sudo cmake --build . --config Release --target install && cd ../../
     - name: Build vvdec
