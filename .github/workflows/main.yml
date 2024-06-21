@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-latest-large
     steps:
     - uses: actions/checkout@v3
     - name: Uname...
@@ -21,11 +21,11 @@ jobs:
     - name: Git clone vvenc, vvdec and finally FFmpeg
       run: git clone https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec && git clone --depth=1 https://github.com/MartinEesmaa/FFmpeg-VVC
     - name: Build vvenc
-      run: cd vvenc && git checkout 1a4864a5634a014ffe590b6be22d6281ee5211eb && mkdir build && cd build && cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 .. -G "Xcode" -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build . --config Release && sudo cmake --build . --config Release --target install && cd ../../
+      run: cd vvenc && git checkout 1a4864a5634a014ffe590b6be22d6281ee5211eb && mkdir build && cd build && cmake .. -G "Xcode" -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build . --config Release && sudo cmake --build . --config Release --target install && cd ../../
     - name: Build vvdec
-      run: cd vvdec && mkdir build && cd build && cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 .. -G "Xcode" -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build . --config Release && sudo cmake --build . --config Release --target install && cd ../../
+      run: cd vvdec && mkdir build && cd build && cmake .. -G "Xcode" -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build . --config Release && sudo cmake --build . --config Release --target install && cd ../../
     - name: Run to compile ffmpeg
-      run: cd FFmpeg-VVC && chmod +x configure && ./configure --arch=x86_64 --enable-gpl --enable-version3 --enable-nonfree --enable-static --enable-libvvenc --enable-libvvdec --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libfdk-aac --enable-pic --enable-sdl2 --pkg-config-flags=--static --extra-version=VVCEasy && make -j4
+      run: cd FFmpeg-VVC && chmod +x configure && ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-static --enable-libvvenc --enable-libvvdec --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libfdk-aac --enable-pic --enable-sdl2 --pkg-config-flags=--static --extra-version=VVCEasy && make -j4
     - name: Upload a Build Artifact of ffmpeg
       uses: actions/upload-artifact@v3.0.0
       with:
