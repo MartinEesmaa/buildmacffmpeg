@@ -1,4 +1,4 @@
-name: Build FFmpeg mac OS VVCEasy Build (arm64)
+name: Build FFmpeg Mac OS VVCEasy Build (arm64)
 on:
   push:
     branches: [ main ]
